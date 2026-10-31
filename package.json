@@ -1,11 +1,11 @@
 {
 	"$schema": "https://json.schemastore.org/package.json",
 	"name": "discord-vscode",
-	"displayName": "Discord Presence",
+	"displayName": "Discord Presence de Germán",
 	"version": "5.9.2",
-	"description": "Update your discord status with a rich presence.",
+	"description": "Extensión personal para mostrar tu actividad de VS Code en Discord, basada en Discord Presence de iCrawl.",
 	"private": true,
-	"publisher": "icrawl",
+	"publisher": "GermanBartoli",
 	"scripts": {
 		"build:check": "tsc --noEmit",
 		"build": "pnpm run lint && node esbuild.mjs",
@@ -26,6 +26,14 @@
 		{
 			"name": "Frangu Vlad",
 			"email": "kingdgrizzle@gmail.com"
+		},
+		{
+			"name": "German Bartoli",
+			"email": "bartoligerman497@gmail.com"
+		},
+		{
+			"name": "Codex",
+			"email": "noreply@openai.com"
 		}
 	],
 	"license": "MIT",
@@ -42,12 +50,12 @@
 	],
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/iCrawl/discord-vscode.git"
+		"url": "https://github.com/GermanBartoli/discord-vscode.git"
 	},
 	"bugs": {
-		"url": "https://github.com/iCrawl/discord-vscode/issues"
+		"url": "https://github.com/GermanBartoli/discord-vscode/issues"
 	},
-	"homepage": "https://github.com/iCrawl/discord-vscode#readme",
+	"homepage": "https://github.com/GermanBartoli/discord-vscode#readme",
 	"dependencies": {
 		"@xhayper/discord-rpc": "^1.2.1",
 		"dayjs": "^1.11.13",

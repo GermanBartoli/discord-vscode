@@ -1,2 +1,5 @@
 * text=auto eol=lf
 pnpm-lock.yaml linguist-generated=true text=auto eol=lf
+package.json text eol=crlf
+.prettierrc.json text eol=crlf
+.gitattributes text eol=crlf
