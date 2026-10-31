@@ -3,3 +3,5 @@ pnpm-lock.yaml linguist-generated=true text=auto eol=lf
 package.json text eol=crlf
 .prettierrc.json text eol=crlf
 .gitattributes text eol=crlf
+src/constants.ts text eol=crlf
+esbuild.mjs text eol=crlf
