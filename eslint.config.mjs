@@ -36,6 +36,7 @@ const typeScriptRuleset = merge(...typescript, {
 		],
 	},
 	settings: {
+		'import-x/core-modules': ['vscode'],
 		'import-x/resolver-next': [
 			createTypeScriptImportResolver({
 				noWarnOnMultipleProjects: true,

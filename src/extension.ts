@@ -1,7 +1,7 @@
-import { Client } from '@xhayper/discord-rpc';
-import throttle from 'lodash-es/throttle';
 import type { ExtensionContext, StatusBarItem } from 'vscode';
 import { commands, StatusBarAlignment, window, workspace, debug } from 'vscode';
+import { Client } from '@xhayper/discord-rpc';
+import throttle from 'lodash-es/throttle';
 import { activity } from './activity';
 import { CLIENT_ID, CONFIG_KEYS } from './constants';
 import { log, LogLevel } from './logger';

@@ -63,3 +63,7 @@ Los commits de esta revisión incluyen `Co-authored-by: Codex <noreply@openai.co
     Hecho por Germán Bartoli · Ver portfolio
   </a>
 </p>
+
+## Actualizar dependencias
+
+Ejecutar `pnpm dlx npm-check-updates -u --target latest` y `pnpm install`. TypeScript permanece en la versión 6 porque `typescript-eslint` aún no admite la API de TypeScript 7; `.ncurc.json` conserva esa excepción.
