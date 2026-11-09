@@ -1,70 +1,57 @@
-# Discord Presence
+# Discord Presence de Germán
 
-> Update your discord status with a rich presence.
+**Versión personal de Discord Presence para mostrar la actividad de VS Code en Discord, basada en el proyecto de iCrawl.**
 
-<div align="center">
-	<p>
-		<a href="https://marketplace.visualstudio.com/items?itemName=icrawl.discord-vscode">
-			<img alt="Visual Studio Marketplace Version" src="https://img.shields.io/visual-studio-marketplace/v/icrawl.discord-vscode?label=Visual%20Studio%20Marketplace">
-		</a>
-		<a href="https://marketplace.visualstudio.com/items?itemName=icrawl.discord-vscode">
-			<img alt="Visual Studio Marketplace Downloads" src="https://img.shields.io/visual-studio-marketplace/d/icrawl.discord-vscode">
-		</a>
-		<a href="https://marketplace.visualstudio.com/items?itemName=icrawl.discord-vscode">
-			<img alt="Visual Studio Marketplace Rating" src="https://img.shields.io/visual-studio-marketplace/r/icrawl.discord-vscode">
-		</a>
-	</p>
-	<p>
-		<a href="https://open-vsx.org/extension/icrawl/discord-vscode">
-			<img alt="Open VSX Version" src="https://img.shields.io/open-vsx/v/icrawl/discord-vscode?label=OpenVSX%20Marketplace">
-		</a>
-		<a href="https://open-vsx.org/extension/icrawl/discord-vscode">
-			<img alt="Open VSX Downloads" src="https://img.shields.io/open-vsx/dt/icrawl/discord-vscode">
-		</a>
-		<a href="https://open-vsx.org/extension/icrawl/discord-vscode">
-			<img alt="Open VSX Rating" src="https://img.shields.io/open-vsx/rating/icrawl/discord-vscode">
-		</a>
-	</p>
-	<p>
-		<a href="https://discord.gg/cZSWqAF">
-			<img src="https://canary.discordapp.com/api/guilds/424963290989461514/embed.png" alt="Discord server">
-		</a>
-	</p>
-</div>
+[![Repositorio](https://img.shields.io/badge/GitHub-GermanBartoli-181717?logo=github)](https://github.com/GermanBartoli/discord-vscode)
+[![Verificaciones](https://github.com/GermanBartoli/discord-vscode/actions/workflows/tests.yml/badge.svg)](https://github.com/GermanBartoli/discord-vscode/actions/workflows/tests.yml)
 
-## Features
+[Descargas](https://github.com/GermanBartoli/discord-vscode/releases) · [Empezar](#primeros-pasos) · [Mapa del repositorio](#mapa-del-repositorio) · [Autoría](#autoría-de-esta-documentación)
 
-- Shows what you are editing in VSCode
-- Support for over 200+ of the most popular languages
-- Enable/Disable Rich Presence for individual workspaces (enabled by default)
-- Custom string support
-- Stable or Insiders build detection
-- Debug mode detection
-- Easily manually reconnect to Discord
+![Guía visual: Discord Presence de Germán](docs/readme/guia.svg)
 
-## Troubleshooting
+_Esquema de orientación; no representa una captura de la aplicación._
 
-**Windows:** Do not run your VSCode or Discord as admin, there is no reason to and it just further complicates everything down the line.
+## Primeros pasos
 
-**Linux:** Discord versions installed using `flatpak` or `snap` need modifications in order to support IPC. In order to avoid this (and as Discord itself suggests) you should download it from [discord.com](https://discord.com/download)
+1. Descargá el archivo VSIX de la release estable de este repositorio.
+2. En VS Code abrí Extensiones → menú de tres puntos → **Install from VSIX…** y elegí el archivo descargado.
+3. Abrí Discord de escritorio y un proyecto. Desde la paleta usá **Enable Discord Presence in the current workspace** o **Reconnect Discord Presence to Discord**.
 
-References:  
-https://github.com/flathub/com.discordapp.Discord/issues/29  
-https://github.com/iCrawl/discord-vscode/issues/77#issuecomment-435622205  
-https://github.com/iCrawl/discord-vscode/issues/85#issuecomment-417895483
+## Qué cambia en esta versión
 
-## Contributing
+Esta distribución se identifica como **Discord Presence de Germán**, con publisher `GermanBartoli` y versión de aplicación 5.9.3. Conserva el proyecto original y sus créditos; los badges de la tienda de iCrawl no representan instalaciones de esta versión personal.
 
-1. [Fork the repository](https://github.com/iCrawl/discord-vscode/fork)!
-2. Clone your fork: `git clone https://github.com/your-username/discord-vscode.git`
-3. Create your feature branch: `git checkout -b my-new-feature`
-4. Commit your changes: `git commit -am 'Add some feature'`
-5. Push to the branch: `git push origin my-new-feature`
-6. Submit a pull request :D
+## Uso y privacidad
 
-## Author
+Permite habilitar o deshabilitar la presencia por espacio de trabajo y personalizar los textos desde la configuración de la extensión. Revisá los nombres de archivos y proyectos que querés mostrar antes de habilitarla. Usá **Disconnect Discord Presence from Discord** para desconectar la presencia.
 
-**Discord Presence** © [iCrawl](https://github.com/iCrawl).  
-Authored and maintained by iCrawl.
+## Si no conecta
 
-> GitHub [@iCrawl](https://github.com/iCrawl)
+Comprobá que Discord de escritorio esté abierto y usá **Reconnect Discord Presence to Discord**. En Windows ejecutá VS Code y Discord con el mismo nivel de permisos. La comunicación es local; una instalación aislada de Discord puede impedir el acceso al IPC.
+
+## Desarrollo
+
+Usá la versión de pnpm indicada en `package.json` y revisá su política de scripts de dependencias antes de instalar.
+
+```powershell
+pnpm install --frozen-lockfile
+pnpm run build:check
+pnpm run build
+```
+
+El build incluye lint y genera la extensión con esbuild. El paquete VSIX debe corresponder a esta distribución personal.
+
+## Proyecto original
+
+Basado en [Discord Presence de iCrawl](https://github.com/iCrawl/discord-vscode), bajo la licencia MIT incluida en el repositorio. Se conservan el autor original y sus colaboradores; Germán Bartoli mantiene esta adaptación personal.
+
+## Mapa del repositorio
+
+- [package.json](package.json)
+- [LICENSE](LICENSE)
+
+## Autoría de esta documentación
+
+Repositorio mantenido por [Germán Bartoli](https://github.com/GermanBartoli). Guía revisada y actualizada con **Codex**, coautor de esta actualización documental. Los autores, colaboradores, licencias y recursos de terceros conservan sus créditos originales.
+
+Los commits de esta revisión incluyen `Co-authored-by: Codex <noreply@openai.com>`; esta atribución no modifica la autoría del historial anterior.

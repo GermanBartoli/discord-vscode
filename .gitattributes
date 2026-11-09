@@ -5,3 +5,5 @@ package.json text eol=crlf
 .gitattributes text eol=crlf
 src/constants.ts text eol=crlf
 esbuild.mjs text eol=crlf
+README.md text eol=crlf
+docs/readme/*.svg text eol=crlf
