@@ -7,7 +7,7 @@
 
 [Descargas](https://github.com/GermanBartoli/discord-vscode/releases) · [Empezar](#primeros-pasos) · [Mapa del repositorio](#mapa-del-repositorio) · [Autoría](#autoría-de-esta-documentación)
 
-![Guía visual: Discord Presence de Germán](docs/readme/guia.svg)
+[Abrir la guía visual de Discord Presence de Germán](docs/readme/guia.svg)
 
 _Esquema de orientación; no representa una captura de la aplicación._
 
