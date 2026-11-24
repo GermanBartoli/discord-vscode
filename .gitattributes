@@ -14,3 +14,7 @@ tsconfig.json text eol=crlf
 eslint.config.mjs text eol=crlf
 src/extension.ts text eol=crlf
 src/logger.ts text eol=crlf
+src/activity.ts text eol=crlf
+src/privacidad.ts text eol=crlf
+tests/privacidad.test.mjs text eol=crlf
+.vscodeignore text eol=crlf

@@ -16,6 +16,7 @@ import {
 	VSCODE_INSIDERS_IMAGE_KEY,
 } from './constants';
 import { log, LogLevel } from './logger';
+import { enlaceRepositorio } from './privacidad';
 import { getConfig, getGit, resolveFileIcon, toLower, toTitle, toUpper } from './util';
 
 interface ActivityPayload {
@@ -100,10 +101,9 @@ async function fileDetails(_raw: string, document: TextDocument, selection: Sele
 		if (git?.repositories.length) {
 			raw = raw.replace(
 				REPLACE_KEYS.GitRepoName,
-				git.repositories
-					?.find((repo) => repo.ui.selected)
-					?.state.remotes[0]?.fetchUrl?.split('/')[1]
-					?.replace('.git', '') ?? FAKE_EMPTY,
+				enlaceRepositorio(git.repositories.find((repo) => repo.ui.selected)?.state.remotes[0]?.fetchUrl)
+					?.pathname.split('/')
+					.pop() ?? FAKE_EMPTY,
 			);
 		} else {
 			raw = raw.replace(REPLACE_KEYS.GitRepoName, UNKNOWN_GIT_REPO_NAME);
@@ -209,18 +209,11 @@ export async function activity(previous: ActivityPayload = {}) {
 	}
 
 	if (!removeRemoteRepository && git?.repositories.length) {
-		let repo = git.repositories.find((repo) => repo.ui.selected)?.state.remotes[0]?.fetchUrl;
-
+		const repo = enlaceRepositorio(git.repositories.find((repo) => repo.ui.selected)?.state.remotes[0]?.fetchUrl);
 		if (repo) {
-			if (repo.startsWith('git@') || repo.startsWith('ssh://')) {
-				repo = repo.replace('ssh://', '').replace(':', '/').replace('git@', 'https://').replace('.git', '');
-			} else {
-				repo = repo.replace(/(https:\/\/)([^@]*)@(.*?$)/, '$1$3').replace('.git', '');
-			}
-
 			state = {
 				...state,
-				buttons: [{ label: 'View Repository', url: repo }],
+				buttons: [{ label: 'View Repository', url: repo.href }],
 			};
 		}
 	}

@@ -5,6 +5,7 @@ import throttle from 'lodash-es/throttle';
 import { activity } from './activity';
 import { CLIENT_ID, CONFIG_KEYS } from './constants';
 import { log, LogLevel } from './logger';
+import { espacioExcluido } from './privacidad';
 import { getConfig, getGit } from './util';
 
 const statusBarIcon: StatusBarItem = window.createStatusBarItem(StatusBarAlignment.Left);
@@ -22,12 +23,29 @@ export function cleanUp() {
 	listeners = [];
 }
 
+let generacion = 0;
+function excluido() {
+	return espacioExcluido(
+		getConfig()[CONFIG_KEYS.WorkspaceExcludePatterns],
+		workspace.workspaceFolders?.map((carpeta) => carpeta.uri.fsPath) ?? [],
+	);
+}
+
 async function sendActivity() {
+	const turno = ++generacion;
+	const usuario = rpc.user;
+	if (!usuario) return;
+	if (excluido()) {
+		state = {};
+		await usuario.clearActivity();
+		return;
+	}
+
+	const siguiente = await activity(state);
+	if (turno !== generacion || usuario !== rpc.user || excluido()) return;
 	// eslint-disable-next-line require-atomic-updates
-	state = {
-		...(await activity(state)),
-	};
-	void rpc.user?.setActivity(state);
+	state = siguiente;
+	await usuario.setActivity(state);
 }
 
 async function login() {
@@ -77,18 +95,26 @@ async function login() {
 export async function activate(context: ExtensionContext) {
 	log(LogLevel.Info, 'Discord Presence activated');
 
-	let isWorkspaceExcluded = false;
-	for (const pattern of config[CONFIG_KEYS.WorkspaceExcludePatterns]) {
-		const regex = new RegExp(pattern);
-		const folders = workspace.workspaceFolders;
-		if (!folders) break;
-		if (folders.some((folder) => regex.test(folder.uri.fsPath))) {
-			isWorkspaceExcluded = true;
-			break;
+	let inicioPendiente = excluido() && config[CONFIG_KEYS.Enabled];
+	const actualizarPrivacidad = async () => {
+		if (inicioPendiente && !excluido() && getConfig()[CONFIG_KEYS.Enabled]) {
+			inicioPendiente = false;
+			statusBarIcon.show();
+			await login();
+		} else {
+			await sendActivity();
 		}
-	}
+	};
+
+	context.subscriptions.push(
+		workspace.onDidChangeWorkspaceFolders(actualizarPrivacidad),
+		workspace.onDidChangeConfiguration(async (evento) => {
+			if (evento.affectsConfiguration('discord.workspaceExcludePatterns')) await actualizarPrivacidad();
+		}),
+	);
 
 	const enable = async (update = true) => {
+		inicioPendiente = false;
 		if (update) {
 			try {
 				await config.update('enabled', true);
@@ -104,6 +130,8 @@ export async function activate(context: ExtensionContext) {
 	};
 
 	const disable = async (update = true) => {
+		inicioPendiente = false;
+		generacion++;
 		if (update) {
 			try {
 				await config.update('enabled', false);
@@ -142,7 +170,7 @@ export async function activate(context: ExtensionContext) {
 
 	context.subscriptions.push(enabler, disabler, reconnecter, disconnect);
 
-	if (!isWorkspaceExcluded && config[CONFIG_KEYS.Enabled]) {
+	if (!excluido() && config[CONFIG_KEYS.Enabled]) {
 		statusBarIcon.show();
 		await login();
 	}

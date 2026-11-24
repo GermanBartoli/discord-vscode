@@ -27,6 +27,8 @@ jobs:
 
       - name: Build dependencies
         run: pnpm run build
+      - name: Verificar privacidad
+        run: node --test tests/privacidad.test.mjs
 
       - name: ESLint (PR)
         run: pnpm run lint
