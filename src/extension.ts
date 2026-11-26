@@ -16,7 +16,7 @@ const config = getConfig();
 
 let state = {};
 let idle: NodeJS.Timeout | undefined;
-let listeners: { dispose(): any }[] = [];
+let listeners: { dispose(): void }[] = [];
 
 export function cleanUp() {
 	for (const listener of listeners) listener.dispose();
